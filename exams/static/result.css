@@ -1,0 +1,20 @@
+td[data-type="pending"] {
+    background: #f6fb5d;
+}
+
+td[data-type="wrong"] {
+    background: #ef5546;
+}
+
+td[data-type="correct"] {
+    background: #58c045;
+}
+
+td.index-number {
+    color: dodgerblue;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}

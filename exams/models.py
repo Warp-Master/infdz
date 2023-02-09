@@ -1,7 +1,7 @@
 import uuid
 
 from django.db import models
-# from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator
 
 
 class Exam(models.Model):
@@ -16,6 +16,7 @@ class Exam(models.Model):
 class Question(models.Model):
     question_text = models.TextField()
     is_order_matters = models.BooleanField(default=False)
+    point_weight = models.PositiveIntegerField(validators=[MinValueValidator(1)], default=1)
     exam = models.ForeignKey('Exam', on_delete=models.CASCADE)
     # answer_length = models.PositiveIntegerField(validators=[MinValueValidator(1)],
     #                                             default=1, verbose_name='Answer table length')
