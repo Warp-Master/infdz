@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ exam.id }}</title>
+    <link href="{% static 'exam.css' %}" rel="stylesheet">
+</head>
+<body>
+    <h1>{{ exam.title }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="question-list">
+            <input id="submit-button" type="submit" value="Проверка">
+            {% for question, form in quest_form_pairs %}
+                {% include 'exams/question.html' with index_num=forloop.counter %}
+            {% endfor %}
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+.question-list {
+    width: max-content;
+    display: grid;
+}
+
+.question {
+    border: 1px solid black;
+    display: grid;
+}
+
+.ans_form {
+    border: 1px solid black;
+    margin: 5px;
+    display: grid;
+}
+
+#submit-button {
+    background: #559df8;
+    font-size: 14px;
+    font-weight: bold;
+    border: 2px solid black;
+}
+
+#submit-button:hover {
+   background-color: blue;
+   color:white;
+}
