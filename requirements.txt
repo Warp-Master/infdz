@@ -1,2 +1,3 @@
 django-nested-inline~=0.4.5
+django-light
 django~=4.1.6

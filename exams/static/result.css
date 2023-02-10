@@ -11,10 +11,30 @@ td[data-type="correct"] {
 }
 
 td.index-number {
-    color: dodgerblue;
+    color: #223e65;
 }
 
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
 }
+
+#result-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#answer-count {
+    color: #223e65;
+}
+
+#total-score {
+    color: gray;
+}
+
+#result-table {
+    background: white;
+}
+
+#answer-count { grid-area: 1 / 1 / 1 / 1; }
+#total-score { grid-area: 1 / 2 / 1 / 2; }

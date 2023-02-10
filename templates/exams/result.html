@@ -1,30 +1,21 @@
-{% load static %}
+<div id="result-header">
+    <h2 id="answer-count">Дано ответов {{ answers_given }}/{{ results|length }}</h2>
+    <h2 id="total-score">балл: {{ score }}/{{ max_score }}</h2>
+</div>
+<table id="result-table">
+    <tr id="table-header">
+        <th>№</th>
+        <th>Балл</th>
+        <th>Ваш ответ</th>
+    </tr>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Result</title>
-    <link href="{% static 'result.css' %}" rel="stylesheet">
-</head>
-<body>
-    <h2>Дано ответов {{ answers_given }}/{{ results|length }}</h2>
-    <h2>балл: {{ score }}/{{ max_score }}</h2>
-    <table id="result-table">
-        <tr>
-            <th>№</th>
-            <th>Балл</th>
-            <th>Ваш ответ</th>
-        </tr>
-        {% for points, answer, state in results %}
-            <tr>
-                <td class="index-number">{{ forloop.counter }}</td>
-                <td{% if state == 0 %} data-type="pending"
-                {% elif state == 1 %} data-type="wrong"
-                {% elif state == 2 %} data-type="correct"{% endif %}>{{ points }}</td>
-                <td><pre>{{ answer }}</pre></td>
-            </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
+    {% for points, answer, state in results %}
+    <tr>
+        <td class="index-number">{{ forloop.counter }}</td>
+        <td{% if state == 0 %} data-type="pending"
+        {% elif state == 1 %} data-type="wrong"
+        {% elif state == 2 %} data-type="correct"{% endif %}>{{ points }}</td>
+        <td><pre>{{ answer }}</pre></td>
+    </tr>
+    {% endfor %}
+</table>

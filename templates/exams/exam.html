@@ -6,17 +6,25 @@
     <meta charset="UTF-8">
     <title>{{ exam.id }}</title>
     <link href="{% static 'exam.css' %}" rel="stylesheet">
+    <link href="{% static 'result.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'exam.js' %}"></script>
 </head>
 <body>
-    <h1>{{ exam.title }}</h1>
-    <form method="post">
-        {% csrf_token %}
-        <div class="question-list">
-            <input id="submit-button" type="submit" value="Проверка">
-            {% for question, form in quest_form_pairs %}
-                {% include 'exams/question.html' with index_num=forloop.counter %}
-            {% endfor %}
-        </div>
-    </form>
+    <div id="header">
+        <input id="submit-button" form="question-form" type="submit" value="Проверка">
+        <h1>{{ exam.title }}</h1>
+    </div>
+
+    <div id="content">
+        <form id="question-form" action="javascript:submitForm()">
+            {% csrf_token %}
+            <div class="question-list">
+                {% for question, form in quest_form_pairs %}
+                    {% include 'exams/question.html' with index_num=forloop.counter %}
+                {% endfor %}
+            </div>
+        </form>
+        <div id="result"></div>
+    </div>
 </body>
 </html>

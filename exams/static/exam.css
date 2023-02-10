@@ -25,3 +25,49 @@
    background-color: blue;
    color:white;
 }
+
+input[type="text"] {
+    background: #e7edf8;
+}
+
+body {
+    background: #e7edf8;
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+    display: grid;
+    grid-area: 1 / 1 / 1 / 1;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 10px;
+    margin-bottom: 17px;
+    background: white;
+}
+
+#header > input {
+    grid-area: 1 / 1 / 1 / 1;
+    height: 50px;
+    width: 220px;
+    margin: 8px auto;
+}
+
+#header > h1 {
+    grid-area: 1 / 2 / 1 / 2;
+    margin: auto;
+    color: #223e65;
+}
+
+#content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#question-form {
+    grid-area: 1 / 1 / 1 / 1;
+    margin-left: 40px;
+}
+
+#result {
+    grid-area: 1 / 2 / 1 / 2;
+}
