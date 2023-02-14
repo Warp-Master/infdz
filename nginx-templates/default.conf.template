@@ -1,0 +1,19 @@
+server {
+    listen       ${NGINX_PORT};
+    server_name  ${NGINX_HOST};
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_pass ${NGINX_PROXYPASS};
+    }
+    location /static/ {
+        root /var/www/html;
+    }
+    location /media/ {
+        root /var/www/html;
+    }
+}
