@@ -2,7 +2,6 @@ from itertools import starmap
 from operator import attrgetter
 import enum
 
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 
@@ -34,11 +33,13 @@ def get_answer_state(answer_list: list[str], is_correct: bool) -> AnswerState:
 
 
 def index(request):
-    return HttpResponse("You're at the exams index.")
+    # group name, exam uuid, exam title
+    exams = Exam.objects.order_by('group__id').values('group__name', 'id', 'title')
+
+    return render(request, "exams/index.html", context={'exams': exams})
 
 
 class ExamView(View):
-
     def get(self, request, exam_uuid):
         exam = get_object_or_404(Exam, pk=exam_uuid)
         question_set = exam.question_set.all()

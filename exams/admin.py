@@ -1,7 +1,7 @@
 from django.contrib import admin
 from nested_inline.admin import NestedTabularInline, NestedStackedInline, NestedModelAdmin
 
-from .models import Exam, Question, Answer
+from .models import ExamGroup, Exam, Question, Answer
 
 
 class AnswerInline(NestedTabularInline):
@@ -17,5 +17,11 @@ class QuestionInline(NestedStackedInline):
 
 @admin.register(Exam)
 class ExamAdmin(NestedModelAdmin):
-    fields = 'title',
+    list_display = 'title', 'id'
+    fields = 'title', 'group'
     inlines = QuestionInline,
+
+
+@admin.register(ExamGroup)
+class ExamGroupAdmin(admin.ModelAdmin):
+    list_display = "name",
