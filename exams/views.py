@@ -16,11 +16,11 @@ class AnswerState(enum.Enum):
 
 def check_answer(question, answer_list: list[str]) -> bool:
     answer_list = [item.casefold().translate({9: None, 32: None}) for item in answer_list]
-    query_set = question.answer_set.all()  # answers in db already processed before save
+    db_answers = [item.value for item in question.answer_set.all()]  # answers in db already processed before save
     if question.is_order_matters:
-        return list(query_set) == answer_list
+        return db_answers == answer_list
     else:
-        return len(set(query_set) - set(answer_list)) == 0
+        return len(set(db_answers) - set(answer_list)) == 0
 
 
 def get_answer_state(answer_list: list[str], is_correct: bool) -> AnswerState:
