@@ -36,5 +36,9 @@ table, th, td {
     background: white;
 }
 
+#result-table pre {
+    margin: 0;
+}
+
 #answer-count { grid-area: 1 / 1 / 1 / 1; }
 #total-score { grid-area: 1 / 2 / 1 / 2; }
