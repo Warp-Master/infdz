@@ -1,17 +1,27 @@
 .question-list {
     width: max-content;
-    display: grid;
+    columns: 2;
 }
 
 .question {
     border: 1px solid black;
-    display: grid;
+    break-inside: avoid;
+}
+
+.question > h3, .ans_form {
+    margin: 0;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .ans_form {
     border: 1px solid black;
     margin: 5px;
-    display: grid;
+}
+
+.ans_form > * {
+    display: flex;
+    flex-flow: column wrap;
 }
 
 #submit-button {
@@ -39,21 +49,32 @@ body {
 #header {
     display: grid;
     grid-area: 1 / 1 / 1 / 1;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 4fr 4fr;
     margin-top: 10px;
     margin-bottom: 17px;
     background: white;
 }
 
-#header > input {
+#header > #home-button {
     grid-area: 1 / 1 / 1 / 1;
-    height: 50px;
-    width: 220px;
-    margin: 8px auto;
+    margin: auto;
+
+    background-color: #fffacd;
+}
+
+#header > #home-button:hover {
+    background-color: orange;
+}
+
+#header > #submit-button {
+    grid-area: 1 / 2 / 1 / 2;
+    height: 80%;
+    width: 40%;
+    margin: auto;
 }
 
 #header > h1 {
-    grid-area: 1 / 2 / 1 / 2;
+    grid-area: 1 / 3 / 1 / 3;
     margin: auto;
     color: #223e65;
 }

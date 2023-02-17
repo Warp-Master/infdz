@@ -3,19 +3,22 @@
     <h2 id="total-score">балл: {{ score }}/{{ max_score }}</h2>
 </div>
 <table id="result-table">
-    <tr id="table-header">
-        <th>№</th>
-        <th>Балл</th>
-        <th>Ваш ответ</th>
-    </tr>
-
-    {% for points, answer, state in results %}
-    <tr>
-        <td class="index-number">{{ forloop.counter }}</td>
-        <td{% if state == 0 %} data-type="pending"
-        {% elif state == 1 %} data-type="wrong"
-        {% elif state == 2 %} data-type="correct"{% endif %}>{{ points }}</td>
-        <td><pre>{{ answer }}</pre></td>
-    </tr>
-    {% endfor %}
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Балл</th>
+            <th>Ваш ответ</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for points, answer, state in results %}
+        <tr>
+            <td class="index-number">{{ forloop.counter }}</td>
+            <td{% if state == 0 %} data-type="pending"
+            {% elif state == 1 %} data-type="wrong"
+            {% elif state == 2 %} data-type="correct"{% endif %}>{{ points }}</td>
+            <td><pre>{{ answer }}</pre></td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
