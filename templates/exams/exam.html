@@ -27,6 +27,24 @@
         </form>
         <div id="result"></div>
     </div>
+
+    <!-- A modal dialog containing a form -->
+    <dialog id="dialog">
+        <form method="dialog">
+          <label for="importbox">
+              Текст для импорта
+          </label><textarea id="importbox" rows=15 cols=15 autofocus></textarea>
+          <div>
+              <button value="cancel">Cancel</button>
+              <button id="confirmBtn" value="default">Confirm</button>
+          </div>
+        </form>
+    </dialog>
+    <p>
+      <button id="showDialog">Импорт</button>
+    </p>
+    <script type="text/javascript" src="{% static 'dialog.js' %}"></script>
+
     <script>submitForm();</script>
 </body>
 </html>
