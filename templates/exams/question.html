@@ -1,7 +1,7 @@
-<div class="question">
+<div id="question-{{ index_num }}" class="question">
     <h3>№{{ index_num }}:</h3>
     {% if question.question_text %}
         <pre>{{ question.question_text }}</pre>
     {% endif %}
-    <div class="ans_form">{{ form }}</div>
+    <div class="ansForm">{{ form }}</div>
 </div>

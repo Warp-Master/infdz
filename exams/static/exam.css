@@ -8,13 +8,13 @@
     break-inside: avoid;
 }
 
-.question > h3, .ans_form {
+.question > h3, .ansForm {
     margin: 0;
     display: inline-block;
     vertical-align: top;
 }
 
-.ans_form {
+.ansForm {
     border: 1px solid black;
     margin: 5px;
 }
