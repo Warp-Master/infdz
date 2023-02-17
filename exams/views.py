@@ -1,5 +1,4 @@
 from itertools import starmap
-from operator import attrgetter
 import enum
 
 from django.shortcuts import render, get_object_or_404
@@ -16,12 +15,12 @@ class AnswerState(enum.Enum):
 
 
 def check_answer(question, answer_list: list[str]) -> bool:
-    query_set = question.answer_set.all()
-    answers_from_db = map(attrgetter('value'), query_set)
+    answer_list = [item.casefold().translate({9: None, 32: None}) for item in answer_list]
+    query_set = question.answer_set.all()  # answers in db already processed before save
     if question.is_order_matters:
-        return list(answers_from_db) == answer_list
+        return list(query_set) == answer_list
     else:
-        return len(set(answers_from_db) - set(answer_list)) == 0
+        return len(set(query_set) - set(answer_list)) == 0
 
 
 def get_answer_state(answer_list: list[str], is_correct: bool) -> AnswerState:

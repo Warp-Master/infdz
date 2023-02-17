@@ -29,7 +29,7 @@ class Exam(models.Model):
 
 
 class Question(models.Model):
-    question_text = models.TextField()
+    question_text = models.TextField(blank=True)
     is_order_matters = models.BooleanField(default=False)
     point_weight = models.PositiveIntegerField(validators=[MinValueValidator(1)], default=1)
     exam = models.ForeignKey('Exam', on_delete=models.CASCADE)
@@ -42,6 +42,11 @@ class Question(models.Model):
 class Answer(models.Model):
     value = models.CharField(max_length=100, blank=True)
     question = models.ForeignKey('Question', on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        # translate removes '\t'(9) and ' '(32) chars
+        self.value = self.value.casefold().translate({9: None, 32: None})
+        super().save(*args, **kwargs)
 
     class Meta:
         order_with_respect_to = 'question'
