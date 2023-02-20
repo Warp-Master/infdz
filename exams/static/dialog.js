@@ -15,12 +15,23 @@ importBox.addEventListener('change', (e) => {
     confirmBtn.value = importBox.value;
 });
 
+function clearInputs(doc) {
+    let inputs = doc.querySelectorAll('.ansForm input');
+    for (const inp of inputs) {
+        inp.value = '';
+    }
+}
+
 // "Confirm" button of form triggers "close" on dialog because of [method="dialog"]
 dialog.addEventListener('close', () => {
+    // clear old inputs before
+    clearInputs(document);
+
     let results = dialog
         .returnValue
         .replace(inputRemoveRE, '')
         .matchAll(regexp);
+
     for (const res of results) {
         let elem = document.getElementById(`question-${res.groups.num}`);
         let inputs = elem.querySelectorAll('.ansForm input');
