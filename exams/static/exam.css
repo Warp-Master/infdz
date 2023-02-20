@@ -82,6 +82,10 @@ body {
     margin: auto auto auto 5px;
 }
 
+#showDialog:hover {
+    background-color: #c71585;
+}
+
 #dialog label {
     font-size: 14px;
     display: block;
