@@ -1,13 +1,14 @@
 const showButton = document.getElementById('showDialog');
-const favDialog = document.getElementById('dialog');
+const dialog = document.getElementById('dialog');
 const importBox = document.getElementById('importbox')
-const confirmBtn = favDialog.querySelector('#confirmBtn');
+const confirmBtn = dialog.querySelector('#confirmBtn');
 const regexp = /(?<num>\d+)[.:](!=$)?(?<ans>[\s\S]*?)(?=\n\d+[.:]|$)/g;
+const inputRemoveRE = /[^.:;a-zа-я\-\d\n]/gi;
 confirmBtn.value = importBox.value;
 
 // "Update details" button opens the <dialog> modally
 showButton.addEventListener('click', () => {
-    favDialog.showModal();
+    dialog.showModal();
 });
 
 importBox.addEventListener('change', (e) => {
@@ -15,19 +16,17 @@ importBox.addEventListener('change', (e) => {
 });
 
 // "Confirm" button of form triggers "close" on dialog because of [method="dialog"]
-favDialog.addEventListener('close', () => {
-    let results = favDialog
+dialog.addEventListener('close', () => {
+    let results = dialog
         .returnValue
-        .replace(/ /g, '')
+        .replace(inputRemoveRE, '')
         .matchAll(regexp);
     for (const res of results) {
         let elem = document.getElementById(`question-${res.groups.num}`);
         let inputs = elem.querySelectorAll('.ansForm input');
-        let answers = res.groups.ans.split('\n');
+        let answers = res.groups.ans.split('\n').filter(ans => ans !== null && ans !== '' && ans !== '-');
         for (let i = 0; i < Math.min(inputs.length, answers.length); ++i) {
-            if (answers[i] !== null && answers[i] !== '') {
-                inputs[i].value = answers[i];
-            }
+            inputs[i].value = answers[i];
         }
         // console.log(inputs, res.groups.ans.split('\n'));
     }
