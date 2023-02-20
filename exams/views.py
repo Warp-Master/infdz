@@ -15,7 +15,7 @@ class AnswerState(enum.Enum):
 
 
 def check_answer(question, answer_list: list[str]) -> bool:
-    answer_list = [item.casefold().translate({9: None, 32: None}) for item in answer_list]
+    answer_list = [item.translate({9: None, 32: None}).casefold() for item in answer_list if item.strip()]
     db_answers = [item.value for item in question.answer_set.all()]  # answers in db already processed before save
     if question.is_order_matters:
         return db_answers == answer_list

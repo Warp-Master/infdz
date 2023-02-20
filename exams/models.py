@@ -35,17 +35,18 @@ class Question(models.Model):
     exam = models.ForeignKey('Exam', on_delete=models.CASCADE)
 
     class Meta:
+        order_with_respect_to = 'exam'
         verbose_name = 'Question'
         verbose_name_plural = 'Questions'
 
 
 class Answer(models.Model):
-    value = models.CharField(max_length=100, blank=True)
+    value = models.CharField(max_length=100)
     question = models.ForeignKey('Question', on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         # translate removes '\t'(9) and ' '(32) chars
-        self.value = self.value.casefold().translate({9: None, 32: None})
+        self.value = self.value.translate({9: None, 32: None}).casefold()
         super().save(*args, **kwargs)
 
     class Meta:
