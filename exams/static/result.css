@@ -19,21 +19,16 @@ table, th, td {
     border-collapse: collapse;
 }
 
-#result-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
 #answer-count {
     color: #223e65;
-}
-
-#total-score {
-    color: gray;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
 }
 
 #result-table {
     background: white;
+    margin: auto;
 }
 
 #result-table pre {
