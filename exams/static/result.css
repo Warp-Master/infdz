@@ -22,8 +22,7 @@ table, th, td {
 #answer-count {
     color: #223e65;
     font-weight: bold;
-    display: flex;
-    justify-content: center;
+    text-align: center;
 }
 
 #result-table {
@@ -35,5 +34,8 @@ table, th, td {
     margin: 0;
 }
 
-#answer-count { grid-area: 1 / 1 / 1 / 1; }
-#total-score { grid-area: 1 / 2 / 1 / 2; }
+#details-summary {
+    display: block;
+    margin: auto auto 1rem auto;
+    resize: none;
+}

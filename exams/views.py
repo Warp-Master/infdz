@@ -1,7 +1,7 @@
 import enum
 from dataclasses import dataclass, field
 from itertools import starmap
-import enum
+from typing import NamedTuple
 
 from django.shortcuts import render, get_object_or_404
 from django.views import View
@@ -15,6 +15,80 @@ class AnswerState(enum.Enum):
     PENDING = 0
     WRONG = 1
     CORRECT = 2
+
+
+class AnswerResume(NamedTuple):
+    points: float = 0
+    given_ans: str = ""
+    state: AnswerState = AnswerState.PENDING
+
+
+@dataclass
+class RangeEnumerator:
+    total: int = 0
+    items: list[range] = field(default_factory=list)
+
+    def add(self, item: int):
+        self.total += 1
+        if not self.items or \
+                self.items[-1].stop < item:
+            self.items.append(range(item, item + 1))
+        else:
+            self.items[-1] = range(self.items[-1].start, item + 1)
+
+    def __str__(self):
+        def range_stringify(r: range):
+            if len(r) == 1:
+                return f"{r.start}"
+            elif len(r) == 2:
+                return f"{r.start}{sep}{r.stop-1}"
+            return f"{r.start}-{r.stop-1}"
+
+        sep = ', '
+        description = sep.join(map(range_stringify, self.items))
+        if description:
+            description = f"({description})"
+        return f"{self.total} {description}".rstrip()
+
+
+@dataclass
+class ResultDetails:
+    pending: RangeEnumerator = field(default_factory=RangeEnumerator)
+    wrong: RangeEnumerator = field(default_factory=RangeEnumerator)
+    correct: RangeEnumerator = field(default_factory=RangeEnumerator)
+
+    answered: int = 0
+    total: int = 0
+
+
+@dataclass
+class Result:
+    score: float = 0
+    max_score: float = 0
+    answers: list[AnswerResume] = field(default_factory=list)
+    details: ResultDetails = field(default_factory=ResultDetails)
+
+    def push_question(self, question, ans_lines: list[str]):
+        self.details.total += 1
+        is_correct = check_answer(question, ans_lines)
+
+        point_weight = question.point_weight
+        self.max_score += point_weight
+
+        points = point_weight * is_correct
+        self.score += points
+
+        state = get_answer_state(ans_lines, is_correct)
+        self.answers.append(AnswerResume(points, '\n'.join(ans_lines), state))
+        match state:  # self.detail.total used like enum number here
+            case AnswerState.PENDING:
+                self.details.pending.add(self.details.total)
+            case AnswerState.WRONG:
+                self.details.wrong.add(self.details.total)
+                self.details.answered += 1
+            case AnswerState.CORRECT:
+                self.details.correct.add(self.details.total)
+                self.details.answered += 1
 
 
 def check_answer(question, answer_list: list[str]) -> bool:
@@ -58,27 +132,13 @@ class ExamView(View):
         ans_forms = starmap(lambda i, x: AnswerForm(request.POST, num_fields=x.answer_set.count(), prefix=i),
                             enumerate(question_set))
 
-        max_score = 0
-        score = 0
-        answers_given = 0
-        results = []
+        result = Result()
         for question, form in zip(question_set, ans_forms):
             if form.is_valid():
-                ans_list = list(form.cleaned_data.values())
-                is_correct = check_answer(question, ans_list)
-                state = get_answer_state(ans_list, is_correct).value
-                point_weight = question.point_weight
-                points = point_weight * is_correct
-
-                score += points
-                results.append((points, '\n'.join(ans_list), state))
-                answers_given += bool(state)
-                max_score += point_weight
+                ans_lines = list(form.cleaned_data.values())
+                result.push_question(question, ans_lines)
 
         context = {
-            'max_score': max_score,
-            'score': score,
-            'answers_given': answers_given,
-            'results': results,
+            'result': result,
         }
         return render(request, 'exams/result.html', context=context)
