@@ -1,8 +1,11 @@
+import enum
+from dataclasses import dataclass, field
 from itertools import starmap
 import enum
 
 from django.shortcuts import render, get_object_or_404
 from django.views import View
+from natsort import natsorted
 
 from .forms import AnswerForm
 from .models import Exam
@@ -34,7 +37,7 @@ def get_answer_state(answer_list: list[str], is_correct: bool) -> AnswerState:
 def index(request):
     # group name, exam uuid, exam title
     exams = Exam.objects.order_by('group__id').values('group__name', 'id', 'title')
-
+    exams = natsorted(exams, key=lambda exam: exam["title"])
     return render(request, "exams/index.html", context={'exams': exams})
 
 
