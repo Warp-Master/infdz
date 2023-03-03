@@ -110,8 +110,8 @@ def get_answer_state(answer_list: list[str], is_correct: bool) -> AnswerState:
 
 def index(request):
     # group name, exam uuid, exam title
-    exams = Exam.objects.order_by('group__id').values('group__name', 'id', 'title')
-    exams = natsorted(exams, key=lambda exam: exam["title"])
+    exams = Exam.objects.values('group__name', 'id', 'title')
+    exams = natsorted(exams, key=lambda exam: (exam["group__name"], exam["title"]))
     return render(request, "exams/index.html", context={'exams': exams})
 
 
