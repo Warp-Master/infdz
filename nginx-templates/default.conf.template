@@ -1,8 +1,33 @@
 server {
-    listen       ${NGINX_PORT};
-    server_name  ${NGINX_HOST};
+    listen ${NGINX_PORT};
+    listen [::]:${NGINX_PORT};
 
-    location = /favicon.ico { access_log off; log_not_found off; }
+    server_name ${WEB_DOMAIN};
+    server_tokens off;
+
+    location ~ /\.well-known/acme-challenge/ {
+	    root /var/www/certbot;
+    }
+
+   location / {
+       return 301 https://infdz.ru$request_uri;
+   }
+}
+
+server {
+    listen       ${SSL_PORT} default_server ssl http2;
+    listen       [::]:${SSL_PORT} ssl http2;
+    server_name  ${WEB_DOMAIN};
+
+    ssl_certificate ${SSL_CERT_PATH};
+    ssl_certificate_key ${SSL_CERT_KEY_PATH};
+
+    location = /favicon.ico {
+        access_log off;
+        log_not_found off;
+        alias /var/www/html/media/favicon.ico;
+    }
+
     location / {
         proxy_set_header Host $http_host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -10,6 +35,7 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_pass ${NGINX_PROXYPASS};
     }
+
     location /static/ {
         root /var/www/html;
     }

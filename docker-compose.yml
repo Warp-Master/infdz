@@ -3,31 +3,33 @@ services:
     image: nginx
     hostname: nginx-infdz
     volumes:
-     - ./nginx-templates:/etc/nginx/templates
-     - ./static:/var/www/html/static
-     - ./media:/var/www/html/media
+     - ./nginx-templates:/etc/nginx/templates:ro
+     - ./static:/var/www/html/static:ro
+     - ./media:/var/www/html/media:ro
+     - /var/www/certbot:/var/www/certbot:ro
+     - /etc/letsencrypt:/etc/nginx/ssl:ro
     ports:
-     - "80:8000"
+     - "${NGINX_PORT}:${NGINX_PORT}"
+     - "${SSL_PORT}:${SSL_PORT}"
 
     environment:
-     - NGINX_HOST=venusdev.space
-     - NGINX_PORT=8000
-     - NGINX_PROXYPASS=http://django:8000
+     - WEB_DOMAIN
+     - NGINX_PORT
+     - SSL_PORT
+     - NGINX_PROXYPASS="http://django:8000"
     restart: always
 
   db:
     image: postgres
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - /home/infdz/pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: <YOUR PASSWORD HERE>
+      - POSTGRES_PASSWORD
     restart: always
 
   django:
     hostname: "django-infdz"
     build: .
-    ports:
-      - "8000:8000"
     volumes:
       - ./exams:/app/exams
       - ./infdz:/app/infdz
