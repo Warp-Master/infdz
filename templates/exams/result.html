@@ -1,37 +1,10 @@
 <div id="result-header">
     <details>
-        <summary id="answer-count">Дано ответов {{ result.details.answered }}/{{ result.details.total }}</summary>
+        <summary id="answer-count">Баллы {{ result.score }}/{{ result.max_score }}</summary>
         <label for="details-summary"></label>
-        <textarea id="details-summary" readonly rows="3" cols="40" wrap="off">- Верно: {{ result.details.correct }}
-- Ошибки: {{ result.details.wrong }}
-- Не сделано: {{ result.details.pending }}</textarea>
-        {#        <table id="details-table">#}
-{#            <thead>#}
-{#                <tr>#}
-{#                    <th>Тип</th>#}
-{#                    <th>Кол-во</th>#}
-{#                </tr>#}
-{#            </thead>#}
-{#            <tbody>#}
-{#                <tr>#}
-{#                    <td>Верно</td>#}
-{#                    <td>{{ result.details.correct }}</td>#}
-{#                </tr>#}
-{#                <tr>#}
-{#                    <td>Неверно</td>#}
-{#                    <td>{{ result.details.wrong }}</td>#}
-{#                </tr>#}
-{#                <tr>#}
-{#                    <td>Без ответа</td>#}
-{#                    <td>{{ result.details.pending }}</td>#}
-{#                </tr>#}
-{#            </tbody>#}
-{#            <thead>#}
-{#                <tr>#}
-{#                    <th id="total-score" colspan="2">Балл: {{ result.score }}/{{ result.max_score }}</th>#}
-{#                </tr>#}
-{#            </thead>#}
-{#        </table>#}
+        <textarea id="details-summary" readonly rows="3" cols="40" wrap="off">- Верно: {{ result.details.CORRECT }}
+- Ошибки: {{ result.details.WRONG }}
+- Не сделано: {{ result.details.PENDING }}</textarea>
     </details>
 </div>
 <table id="result-table">
@@ -43,13 +16,11 @@
         </tr>
     </thead>
     <tbody>
-        {% for points, answer, state in result.answers %}
+        {% for ans in result.answers %}
         <tr>
-            <td class="index-number">{{ forloop.counter }}</td>
-            <td{% if state.value == 0 %} data-type="pending"
-            {% elif state.value == 1 %} data-type="wrong"
-            {% elif state.value == 2 %} data-type="correct"{% endif %}>{{ points }}</td>
-            <td><pre>{{ answer }}</pre></td>
+            <td class="index-number">{{ ans.general_num }}{% if ans.sub_num is not None %}.{{ ans.sub_num }}{% endif %}</td>
+            <td data-type="{{ ans.state.name }}">{{ ans.points }}</td>
+            <td><pre>{{ ans.text }}</pre></td>
         </tr>
         {% endfor %}
     </tbody>

@@ -31,6 +31,7 @@ class Exam(models.Model):
 class Question(models.Model):
     question_text = models.TextField(blank=True)
     is_order_matters = models.BooleanField(default=False)
+    atomic_check = models.BooleanField(default=False)
     point_weight = models.PositiveIntegerField(validators=[MinValueValidator(1)], default=1)
     exam = models.ForeignKey('Exam', on_delete=models.CASCADE)
 
