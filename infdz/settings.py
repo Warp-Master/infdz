@@ -35,7 +35,7 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 if not DEBUG:
-    ALLOWED_HOSTS.append(f".{env('WEB_DOMAIN')}")
+    ALLOWED_HOSTS.append(env('WEB_DOMAIN'))
     USE_X_FORWARDED_HOST = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
