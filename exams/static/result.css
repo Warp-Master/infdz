@@ -1,12 +1,12 @@
-td[data-type="pending"] {
+td[data-type="PENDING"] {
     background: #f6fb5d;
 }
 
-td[data-type="wrong"] {
+td[data-type="WRONG"] {
     background: #ef5546;
 }
 
-td[data-type="correct"] {
+td[data-type="CORRECT"] {
     background: #58c045;
 }
 
