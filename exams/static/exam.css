@@ -32,12 +32,15 @@
 }
 
 #submit-button:hover {
-   background-color: blue;
-   color:white;
+    background-color: blue;
+    color: white;
 }
 
 input[type="text"] {
     background: #e7edf8;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
 }
 
 body {
