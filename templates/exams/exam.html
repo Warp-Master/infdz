@@ -7,13 +7,14 @@
     <title>{{ exam.title }}</title>
     <link href="{% static 'exam.css' %}" rel="stylesheet">
     <link href="{% static 'result.css' %}" rel="stylesheet">
+    <link href="{% static 'dialog.css' %}" rel="stylesheet">
     <script type="text/javascript" src="{% static 'exam.js' %}"></script>
 </head>
 <body>
     <div id="header">
         <input id="home-button" type="button" onclick="location.href='/';" value="Home" />
         <input id="submit-button" form="question-form" type="submit" value="Проверка">
-        <button id="showDialog">Импорт</button>
+        <button id="dialog-show">Импорт</button>
         <h1>{{ exam.title }}</h1>
     </div>
 
@@ -32,11 +33,12 @@
     <!-- A modal dialog containing a form -->
     <dialog id="dialog">
         <form method="dialog">
-            <label for="importbox">Текст для импорта</label>
-            <textarea id="importbox" rows=15 cols=15 autofocus></textarea>
+            <span id="dialog-close">×</span><br>
+            <label for="dialog-importbox" style="text-align: center;">Импорт</label>
+            <textarea id="dialog-importbox" rows=15 cols=15 autofocus></textarea>
             <div>
-                <button value="cancel">Cancel</button>
-                <button id="confirmBtn" value="default">Confirm</button>
+                <button id="dialog-clear">Clear All</button>
+                <button id="dialog-confirm">Confirm</button>
             </div>
         </form>
     </dialog>

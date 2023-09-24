@@ -1,7 +1,9 @@
-const showButton = document.getElementById('showDialog');
+const showButton = document.getElementById('dialog-show');
 const dialog = document.getElementById('dialog');
-const importBox = document.getElementById('importbox')
-const confirmBtn = dialog.querySelector('#confirmBtn');
+const importBox = document.getElementById('dialog-importbox')
+const confirmBtn = document.getElementById('dialog-confirm');
+const closeBtn = document.getElementById('dialog-close')
+const clearBtn = document.getElementById('dialog-clear')
 const regexp = /(?<num>\d+)[.:](!=$)?(?<ans>[\s\S]*?)(?=\n\d+[.:]|$)/g;
 const inputRemoveRE = /[^.:;a-zа-я\-\d\n]/gi;
 confirmBtn.value = importBox.value;
