@@ -25,10 +25,7 @@ function clearInputs(doc) {
 }
 
 // "Confirm" button of form triggers "close" on dialog because of [method="dialog"]
-dialog.addEventListener('close', () => {
-    // clear old inputs before
-    clearInputs(document);
-
+dialog.addEventListener('close', (e) => {
     let results = dialog
         .returnValue
         .replace(inputRemoveRE, '')
@@ -43,4 +40,17 @@ dialog.addEventListener('close', () => {
         }
         // console.log(inputs, res.groups.ans.split('\n'));
     }
+});
+
+confirmBtn.addEventListener('click', (e) => {
+    // clear old inputs before
+    clearInputs(document);
+});
+
+clearBtn.addEventListener('click', (e) => {
+    clearInputs(document);
+});
+
+closeBtn.addEventListener('click', (e) => {
+    window.dialog.close();
 });
