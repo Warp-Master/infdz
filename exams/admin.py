@@ -18,7 +18,7 @@ class QuestionInline(NestedStackedInline):
 @admin.register(Exam)
 class ExamAdmin(NestedModelAdmin):
     list_display = 'title', 'id'
-    fields = 'title', 'group'
+    fields = 'title', 'group', 'is_hidden'
     inlines = QuestionInline,
 
 

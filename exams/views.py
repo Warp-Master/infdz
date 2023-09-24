@@ -194,7 +194,7 @@ class Result:
 
 def index(request):
     # group name, exam uuid, exam title
-    exams = Exam.objects.values('group__name', 'id', 'title')
+    exams = Exam.objects.filter(is_hidden=False).values('group__name', 'id', 'title')
     exams = natsorted(exams, key=lambda exam: (exam["group__name"], exam["title"]))
     return render(request, "exams/index.html", context={'exams': exams})
 
