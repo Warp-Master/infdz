@@ -33,7 +33,8 @@ services:
     volumes:
       - ./exams:/app/exams
       - ./infdz:/app/infdz
-      - ./templates:/app/templates
+      - ./static:/app/static
+      - ./templates:/app/templates:ro
 
     command: >
       sh -c "python3 manage.py makemigrations --no-input &&
