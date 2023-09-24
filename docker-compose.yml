@@ -22,7 +22,7 @@ services:
   db:
     image: postgres
     volumes:
-      - /home/infdz/pgdata:/var/lib/postgresql/data
+      - "${PGDATA_PATH}:/var/lib/postgresql/data"
     environment:
       - POSTGRES_PASSWORD
     restart: always
