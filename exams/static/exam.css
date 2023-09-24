@@ -1,10 +1,11 @@
 .question-list {
     width: max-content;
     columns: 2;
+    column-rule: solid 1px;
+    border: solid 1px;
 }
 
 .question {
-    border: 1px solid black;
     break-inside: avoid;
 }
 
