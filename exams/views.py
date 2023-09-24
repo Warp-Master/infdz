@@ -14,10 +14,6 @@ from .models import Exam
 INPUTS_CNT4MULTI_ANSWER_QUEST = 10
 
 
-# def zip_first(first, *rest, fillvalue=None):
-#     return zip(first, *map(chain, rest, repeat(repeat(fillvalue))))
-
-
 class AnswerState(enum.Enum):
     PENDING = enum.auto()
     WRONG = enum.auto()
