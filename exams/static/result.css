@@ -38,4 +38,12 @@ table, th, td {
     display: block;
     margin: auto auto 1rem auto;
     resize: none;
+    white-space: pre;
+}
+
+#copy-icon {
+    display: block;
+    margin: auto auto 1rem auto;
+    width: 1em;
+    height: 1em;
 }
