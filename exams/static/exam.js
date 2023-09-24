@@ -9,6 +9,4 @@ function submitForm() {
   .then(data => {
     document.getElementById('result').innerHTML = data;
   });
-  f.preventDefault()
-  return false;
 }
