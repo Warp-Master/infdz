@@ -6,8 +6,8 @@ services:
      - ./nginx-templates:/etc/nginx/templates:ro
      - ./static:/var/www/html/static:ro
      - ./media:/var/www/html/media:ro
-     - /var/www/certbot:/var/www/certbot:ro
-     - /etc/letsencrypt:/etc/nginx/ssl:ro
+     - "${SSL_CERT_PATH}:/etc/ssl/certs/cacert.pem:ro"
+     - "${SSL_CERT_KEY_PATH}:/etc/ssl/private/cakey.pem:ro"
     ports:
      - "${NGINX_PORT}:${NGINX_PORT}"
      - "${SSL_PORT}:${SSL_PORT}"

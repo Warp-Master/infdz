@@ -19,8 +19,8 @@ server {
     listen       [::]:${SSL_PORT} ssl http2;
     server_name  ${WEB_DOMAIN};
 
-    ssl_certificate ${SSL_CERT_PATH};
-    ssl_certificate_key ${SSL_CERT_KEY_PATH};
+    ssl_certificate /etc/ssl/certs/cacert.pem;
+    ssl_certificate_key /etc/ssl/private/cakey.pem;
 
     location = /favicon.ico {
         access_log off;
