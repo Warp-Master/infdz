@@ -35,6 +35,7 @@ services:
       - ./infdz:/app/infdz
       - ./static:/app/static
       - ./templates:/app/templates:ro
+      - .env:/app/.env:ro
 
     command: >
       sh -c "python3 manage.py migrate --no-input &&
