@@ -39,5 +39,6 @@ services:
 
     command: >
       sh -c "python3 manage.py migrate --no-input &&
+             python3 manage.py collectstatic --noinput && 
              gunicorn infdz.wsgi --bind 0.0.0.0:8000"
     restart: always
