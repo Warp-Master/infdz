@@ -19,8 +19,8 @@ server {
     listen       [::]:443 ssl http2;
     server_name  ${WEB_DOMAIN};
 
-    ssl_certificate /etc/ssl/certs/cacert.pem;
-    ssl_certificate_key /etc/ssl/private/cakey.pem;
+    ssl_certificate /etc/nginx/ssl/live/infdz.ru/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/live/infdz.ru/privkey.pem;
 
     location = /favicon.ico {
         access_log off;
