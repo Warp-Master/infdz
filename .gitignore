@@ -4,9 +4,8 @@
 *.pyc
 __pycache__/
 db.sqlite3
-media/
 pgdata/
-static/
+/static/
 
 # Backup files #
 *.bak
