@@ -1,0 +1,19 @@
+#dialog {
+    padding-top: 0;
+}
+
+#dialog label {
+    font-size: 14px;
+    display: block;
+}
+
+#dialog-close {
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#dialog-importbox {
+    height: auto;
+}
